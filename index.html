@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -175,10 +175,12 @@
   .f-meta { font-size: .75rem; color: var(--ink-3); }
   .f-msg { font-size: .92rem; font-weight: 500; line-height: 1.35; }
   .status { font-size: .75rem; font-weight: 600; white-space: nowrap; padding: .3rem .6rem; border-radius: 999px; background: #FFF1D1; color: #7A5300; transition: background .35s, color .35s; }
-  .status .done { display: none; }
+  .status { display: inline-grid; text-align: center; }
+  .status > span { grid-area: 1 / 1; }
+  .status .done { visibility: hidden; }
   .feed-item.resolved .status { background: #D3F5EE; color: var(--forest); }
-  .feed-item.resolved .status .new { display: none; }
-  .feed-item.resolved .status .done { display: inline; }
+  .feed-item.resolved .status .new { visibility: hidden; }
+  .feed-item.resolved .status .done { visibility: visible; }
   .feed-foot { display: flex; justify-content: space-between; color: rgba(255,255,255,.7); font-size: .86rem; padding: 1rem .3rem 0; }
   .feed-foot b { color: #fff; }
   @media (prefers-reduced-motion: no-preference) {
@@ -206,7 +208,7 @@
   .pain h3 { margin: 1.8rem 0 .7rem; font-weight: 600; font-size: 1.45rem; }
   .pain p { color: var(--ink-2); }
   .pain-ic { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: var(--soft); }
-  .pain-ic svg { width: 22px; height: 22px; stroke: #B5651D; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .pain-ic svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
   /* ---------- Outcomes grid ---------- */
   .outcomes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
@@ -226,12 +228,20 @@
 
   /* ---------- Use cases ---------- */
   .ucs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
-  .uc { display: flex; flex-direction: column; text-decoration: none; background: var(--soft); border: 1px solid var(--line); border-radius: 18px; padding: 2.2rem 2rem; transition: border-color .2s; }
-  .uc:hover { border-color: var(--forest); }
-  .uc .tag { align-self: start; font-size: .88rem; padding: .25rem .85rem; border-width: 4px; margin-bottom: 3rem; }
-  .uc p { color: var(--ink-2); margin: .9rem 0 2rem; }
-  .uc-more { margin-top: auto; display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--leaf-dark); }
-  .uc-more svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .uc {
+    position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end;
+    min-height: 520px; border-radius: 18px; text-decoration: none; color: #fff; background: #2a2a2b;
+  }
+  .uc img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  .uc:hover img { transform: scale(1.04); }
+  .uc::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,20,21,.9) 0%, rgba(20,20,21,.6) 34%, rgba(20,20,21,0) 60%); }
+  .uc-body { position: relative; z-index: 1; padding: 1.8rem 1.8rem 1.9rem; }
+  .uc .tag { font-size: .85rem; padding: .25rem .85rem; border: 1px solid rgba(255,255,255,.4); background: rgba(255,255,255,.14); color: #fff; margin-bottom: 1rem; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+  .uc h3 { color: #fff; }
+  .uc p { color: rgba(255,255,255,.82); margin: .6rem 0 1.1rem; font-size: .98rem; }
+  .uc-more { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: #fff; }
+  .uc-more svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+  .uc:hover .uc-more svg { transform: translateX(3px); }
 
   /* ---------- Why us ---------- */
   .why { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
@@ -311,6 +321,7 @@
     .panel { padding: 4rem 2rem; }
     .split, .why { grid-template-columns: 1fr; gap: 3rem; }
     .steps, .pains, .ucs { grid-template-columns: 1fr; }
+    .uc { min-height: 440px; }
     .outcomes { grid-template-columns: 1fr 1fr; }
     .proof { grid-template-columns: 1fr; gap: 2rem; }
     .head-row { flex-direction: column; align-items: start; }
@@ -355,8 +366,8 @@
     </ul>
     <div class="nav-right">
       <div class="lang" role="group" aria-label="Language">
-        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
       <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
@@ -556,22 +567,31 @@
       </div>
       <div class="ucs">
         <a class="uc" href="use-cases.html#leads">
+          <img src="uc-leads.webp" alt="" loading="lazy" style="object-position:55% center">
+          <div class="uc-body">
           <span class="tag" data-i18n="uc.1.tag">New leads</span>
           <h3 data-i18n="uc.1.title">Turn more enquiries into clients</h3>
           <p data-i18n="uc.1.text">Instant replies, qualification and follow-ups, so no lead goes cold.</p>
           <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </a>
         <a class="uc" href="use-cases.html#support">
+          <img src="uc-support.webp" alt="" loading="lazy" style="object-position:35% center">
+          <div class="uc-body">
           <span class="tag" data-i18n="uc.2.tag">Customer support</span>
           <h3 data-i18n="uc.2.title">Support that never sleeps</h3>
           <p data-i18n="uc.2.text">Email, WhatsApp, Telegram or phone: customers get answers in seconds.</p>
           <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </a>
         <a class="uc" href="use-cases.html#assistant">
+          <img src="uc-team.webp" alt="" loading="lazy" style="object-position:68% center">
+          <div class="uc-body">
           <span class="tag" data-i18n="uc.3.tag">Your team</span>
           <h3 data-i18n="uc.3.title">Every customer, on one screen</h3>
           <p data-i18n="uc.3.text">An assistant that pulls emails, tickets, leads and invoices together for your team.</p>
           <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </div>
         </a>
       </div>
     </div>
@@ -784,7 +804,7 @@
   var buttons = document.querySelectorAll('.lang button');
 
   function setLang(lang) {
-    if (!T[lang]) lang = 'en';
+    if (!T[lang]) lang = 'fr';
     var d = T[lang];
     document.documentElement.lang = lang;
     document.title = d['meta.title'];
@@ -804,7 +824,7 @@
     var p = new URLSearchParams(location.search).get('lang');
     if (p) return p;
     try { var s = localStorage.getItem('bloom-lang'); if (s) return s; } catch (e) {}
-    return (navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+    return 'fr';
   }
 
   buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); }); });
