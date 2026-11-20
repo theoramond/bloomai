@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom — Every customer answered, every lead followed up</title>
+<meta name="description" content="Bloom automates your customer emails, messages and calls so your team saves time, cuts costs and never misses a lead.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!--
+  CALENDAR LINK: replace every "https://cal.com/bloom/30min" in this file with your real Cal link.
+-->
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F4F4F1;
+    --card: #FFFFFF;
+    --soft: #F6F6F4;
+    --line: #E4E4DF;
+    --ring: #EAEAE6;
+    --ink: #242324;
+    --ink-2: #555357;
+    --ink-3: #7F7D82;
+    --forest: #0B3F3C;      /* deep teal: highlight box, panels, banner */
+    --forest-2: #0E4A46;
+    --mint: #22F2C1;        /* logo mint: text inside highlight box */
+    --leaf: #242324;        /* accents: neutral charcoal */
+    --teal: #02BFB1;        /* logo teal */
+    --blue: #30A2FA;        /* logo blue */
+    --leaf-dark: #00786E;  /* readable teal for links on white */
+    --display: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+    --body: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    --wrap: 1180px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--body); background: var(--bg); color: var(--ink); line-height: 1.6; font-size: 17px; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  svg { display: block; }
+  :focus-visible { outline: 2px solid var(--leaf-dark); outline-offset: 3px; border-radius: 8px; }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -0.035em; line-height: 1.08; }
+  h1 { font-size: clamp(2.6rem, 6vw, 4.9rem); }
+  h2 { font-size: clamp(2.1rem, 4.4vw, 3.6rem); }
+  h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); letter-spacing: -0.03em; line-height: 1.15; }
+
+  /* Highlighted phrase, the signature headline treatment */
+  mark {
+    background: var(--forest); color: var(--mint);
+    padding: 0 .22em .04em; border-radius: .14em;
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  }
+
+  .lead { color: var(--ink-2); font-size: 1.12rem; line-height: 1.65; }
+
+  /* Pill tag with grey ring */
+  .tag {
+    display: inline-flex; align-items: center; gap: .55rem;
+    background: var(--card); border: 5px solid var(--ring); border-radius: 999px;
+    padding: .38rem 1.05rem; font-size: .98rem; font-weight: 500; margin-bottom: 1.6rem;
+  }
+  .tag .dot { width: 30px; height: 30px; border-radius: 50%; background: var(--forest); display: grid; place-items: center; margin-left: -.55rem; }
+  .tag .dot svg { width: 15px; height: 15px; stroke: var(--mint); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; gap: .75rem;
+    font: 600 1rem var(--body); text-decoration: none; cursor: pointer;
+    border-radius: 8px; border: 1px solid transparent; transition: background .2s, border-color .2s;
+  }
+  .btn-main {
+    background: var(--ink); color: #fff; padding: 1.05rem 1.6rem 1rem;
+    text-transform: uppercase; letter-spacing: .01em; font-size: .98rem;
+  }
+  .btn-main:hover { background: #3A393B; }
+  .btn-main .ic { width: 24px; height: 24px; border: 1.6px solid #fff; border-radius: 50%; display: grid; place-items: center; }
+  .btn-main .ic svg { width: 12px; height: 12px; stroke: #fff; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-nav { background: var(--ink); color: #fff; padding: .78rem 1.25rem; font-size: .95rem; }
+  .btn-nav:hover { background: #3A393B; }
+  .btn-outline { border-color: var(--ink); color: var(--ink); padding: .85rem 1.4rem; text-transform: uppercase; font-size: .92rem; border-radius: 999px; }
+  .btn-outline:hover { background: var(--ink); color: #fff; }
+  .btn-outline svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Floating nav ---------- */
+  .nav-shell { position: sticky; top: 14px; z-index: 60; padding: 14px 24px 0; }
+  .nav {
+    max-width: 1240px; margin: 0 auto; background: var(--card);
+    border: 1px solid var(--line); border-radius: 14px;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .7rem .7rem .7rem 1.2rem;
+  }
+  .logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.3rem; letter-spacing: -0.03em; }
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a { text-decoration: none; font-weight: 500; font-size: 1rem; }
+  .nav-links a:hover { color: var(--leaf-dark); }
+  .nav-right { display: flex; align-items: center; gap: .8rem; }
+  .lang { display: inline-flex; background: var(--soft); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+  .lang button { font: 600 .78rem var(--body); border: 0; background: transparent; color: var(--ink-3); padding: .32rem .62rem; border-radius: 999px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .menu-btn { display: none; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--card); cursor: pointer; place-items: center; }
+  .menu-btn span, .menu-btn span::before, .menu-btn span::after { content: ''; display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; position: relative; }
+  .menu-btn span::before { position: absolute; top: -6px; }
+  .menu-btn span::after { position: absolute; top: 6px; }
+  .mobile-menu { display: none; max-width: 1240px; margin: 8px auto 0; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: .6rem 1.2rem 1.2rem; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: .8rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-weight: 500; }
+  .mobile-menu .btn { display: flex; justify-content: center; width: 100%; margin-top: 1rem; padding: .95rem 1.4rem; border-bottom: 0; }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; text-align: center; padding: 6rem 0 0; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; inset: -10% -20% auto; height: 900px; z-index: -1;
+    background:
+      radial-gradient(600px 300px at 20% 30%, rgba(255,255,255,.9), transparent 70%),
+      radial-gradient(700px 360px at 80% 60%, rgba(2,191,177,.14), transparent 70%),
+      radial-gradient(520px 300px at 60% 20%, rgba(48,162,250,.10), transparent 70%),
+      radial-gradient(500px 260px at 40% 85%, rgba(228,230,226,.9), transparent 70%);
+  }
+  .hero h1 { max-width: 16ch; margin: 0 auto 1.6rem; }
+  .hero h1 { line-height: 1.14; }
+  .hero h1 mark { white-space: nowrap; }
+  .hero .lead { max-width: 40rem; margin: 0 auto 2.6rem; }
+
+  .proof {
+    margin-top: 4.5rem; background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+    display: grid; grid-template-columns: 1.1fr 1.5fr; align-items: center; text-align: left;
+    padding: 2rem 2.4rem;
+  }
+  .proof-chan p { font-weight: 500; margin-bottom: 1rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .chip { display: inline-flex; align-items: center; gap: .45rem; padding: .45rem .85rem; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); font-size: .9rem; font-weight: 500; }
+  .chip svg { width: 15px; height: 15px; stroke: var(--leaf-dark); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .stat { text-align: center; padding: .4rem 1rem; border-left: 1px solid var(--line); }
+  .stat b { display: block; font-family: var(--display); font-weight: 500; font-size: clamp(2.2rem, 4vw, 3.4rem); letter-spacing: -0.04em; line-height: 1.05; }
+  .stat span { color: var(--ink-2); font-size: .98rem; }
+
+  /* Tools marquee */
+  .tools { padding: 5rem 0 4rem; text-align: center; }
+  .tools > p { font-family: var(--display); font-weight: 500; font-size: 1.3rem; margin-bottom: 2rem; }
+  .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+  .marquee-track { display: flex; gap: 4rem; width: max-content; animation: slide 38s linear infinite; }
+  .marquee-track span { font-family: var(--display); font-weight: 600; font-size: 1.9rem; letter-spacing: -0.03em; color: #9A9F9B; white-space: nowrap; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ---------- Big white containers ---------- */
+  .panel { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 6rem 5rem; }
+  .section { padding: 2.5rem 0; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .split .lead { margin: 1.4rem 0 2.2rem; max-width: 32rem; }
+
+  /* Visual panel: dark green with the live inbox */
+  .visual {
+    border-radius: 16px; padding: 2rem; min-height: 460px; display: flex; align-items: center;
+    background:
+      radial-gradient(420px 260px at 85% 10%, rgba(2,191,177,.35), transparent 70%),
+      radial-gradient(380px 300px at 0% 100%, rgba(48,162,250,.22), transparent 70%),
+      var(--forest);
+  }
+  .feed { width: 100%; }
+  .feed-head { display: flex; justify-content: space-between; color: rgba(255,255,255,.7); font-size: .88rem; padding: 0 .3rem 1rem; }
+  .feed-head strong { color: #fff; font-weight: 600; }
+  .live { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #fff; margin-right: .5rem; box-shadow: 0 0 0 4px rgba(255,255,255,.2); }
+  .feed-list { list-style: none; display: grid; gap: .6rem; }
+  .feed-item { display: grid; grid-template-columns: 40px 1fr auto; gap: .85rem; align-items: center; background: #fff; border-radius: 12px; padding: .8rem .9rem; }
+  .ch { width: 40px; height: 40px; border-radius: 10px; background: #DDF5F2; display: grid; place-items: center; }
+  .ch svg { width: 19px; height: 19px; stroke: var(--forest); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .f-meta { font-size: .75rem; color: var(--ink-3); }
+  .f-msg { font-size: .92rem; font-weight: 500; line-height: 1.35; }
+  .status { font-size: .75rem; font-weight: 600; white-space: nowrap; padding: .3rem .6rem; border-radius: 999px; background: #FFF1D1; color: #7A5300; transition: background .35s, color .35s; }
+  .status .done { display: none; }
+  .feed-item.resolved .status { background: #D3F5EE; color: var(--forest); }
+  .feed-item.resolved .status .new { display: none; }
+  .feed-item.resolved .status .done { display: inline; }
+  .feed-foot { display: flex; justify-content: space-between; color: rgba(255,255,255,.7); font-size: .86rem; padding: 1rem .3rem 0; }
+  .feed-foot b { color: #fff; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .feed-item { opacity: 0; transform: translateY(10px); }
+    .js .feed-item.in { opacity: 1; transform: none; transition: opacity .5s ease, transform .5s ease; }
+  }
+
+  /* Step cards (phase style) */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 5rem; }
+  .step { background: var(--soft); border: 1px solid var(--line); border-radius: 18px; padding: 2.2rem 2rem 2.4rem; }
+  .step-top { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; }
+  .step-top .tag { margin: 0; font-size: .92rem; padding: .3rem .9rem; border-width: 4px; flex: none; }
+  .step-top .arrow { flex: 1; height: 1px; background: #B9BDB9; position: relative; }
+  .step-top .arrow::after { content: ''; position: absolute; right: 0; top: -4px; width: 8px; height: 8px; border-top: 1px solid #B9BDB9; border-right: 1px solid #B9BDB9; transform: rotate(45deg); }
+  .step p { color: var(--ink-2); margin-top: .9rem; }
+
+  /* ---------- Problem ---------- */
+  .head-row { display: flex; justify-content: space-between; align-items: end; gap: 2rem; margin-bottom: 3rem; }
+  .head-row h2 { max-width: 20ch; }
+  .head-stack { margin-bottom: 3rem; }
+  .head-stack h2 { max-width: 20ch; }
+  .head-stack .lead { margin-top: 1.2rem; max-width: 36rem; }
+  .pains { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .pain { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 2.2rem; }
+  .pain h3 { margin: 1.8rem 0 .7rem; font-weight: 600; font-size: 1.45rem; }
+  .pain p { color: var(--ink-2); }
+  .pain-ic { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); display: grid; place-items: center; background: var(--soft); }
+  .pain-ic svg { width: 22px; height: 22px; stroke: #B5651D; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Outcomes grid ---------- */
+  .outcomes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  .oc { border: 1px solid var(--line); border-radius: 18px; padding: 2.2rem 2rem; min-height: 340px; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; background: var(--card); }
+  .oc p { color: var(--ink-2); font-size: .98rem; }
+  .oc-feature {
+    color: #fff; border-color: var(--forest);
+    background:
+      radial-gradient(300px 200px at 20% 0%, rgba(34,242,193,.22), transparent 70%),
+      radial-gradient(260px 260px at 100% 100%, rgba(48,162,250,.28), transparent 70%),
+      var(--forest);
+  }
+  .oc-feature p { color: rgba(255,255,255,.75); }
+  .oc-feature .big { font-family: var(--display); font-size: 3.6rem; font-weight: 500; letter-spacing: -0.04em; line-height: 1; color: var(--mint); }
+  .oc-ic { width: 52px; height: 52px; border-radius: 50%; border: 1px solid var(--line); background: var(--soft); display: grid; place-items: center; }
+  .oc-ic svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Use cases ---------- */
+  .ucs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .uc { display: flex; flex-direction: column; text-decoration: none; background: var(--soft); border: 1px solid var(--line); border-radius: 18px; padding: 2.2rem 2rem; transition: border-color .2s; }
+  .uc:hover { border-color: var(--forest); }
+  .uc .tag { align-self: start; font-size: .88rem; padding: .25rem .85rem; border-width: 4px; margin-bottom: 3rem; }
+  .uc p { color: var(--ink-2); margin: .9rem 0 2rem; }
+  .uc-more { margin-top: auto; display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--leaf-dark); }
+  .uc-more svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Why us ---------- */
+  .why { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .why-left { text-align: center; }
+  .why-left h2 { margin-bottom: 2.6rem; }
+  .why-left .tag { margin-left: auto; margin-right: auto; }
+  .cust { text-align: left; background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 1.6rem; }
+  .cust-top { display: flex; align-items: center; gap: .9rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+  .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--forest); color: var(--mint); display: grid; place-items: center; font-family: var(--display); font-weight: 600; }
+  .cust-top b { display: block; font-weight: 600; }
+  .cust-top span { color: var(--ink-3); font-size: .88rem; }
+  .cust-label { font-size: .8rem; color: var(--ink-3); margin-bottom: .6rem; }
+  .cust-rows { list-style: none; display: grid; gap: .5rem; }
+  .cust-rows li { display: flex; justify-content: space-between; gap: 1rem; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: .7rem .9rem; font-size: .9rem; }
+  .cust-rows li span:last-child { color: var(--ink-3); white-space: nowrap; }
+  .pill-ok { color: var(--forest) !important; font-weight: 600; }
+  .checks { display: grid; gap: 1.1rem; }
+  .check { display: grid; grid-template-columns: 1fr auto; gap: 1.6rem; align-items: start; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; padding: 1.8rem 1.8rem; font-size: 1.06rem; line-height: 1.6; }
+  .check strong { color: var(--leaf-dark); font-weight: 600; }
+  .check-ic { width: 36px; height: 36px; border-radius: 50%; background: var(--leaf); display: grid; place-items: center; }
+  .check-ic svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Final banner ---------- */
+  .banner {
+    position: relative; overflow: hidden; border-radius: 22px; color: #fff;
+    padding: 5.5rem 5rem; background: var(--forest-2);
+  }
+  .banner::before, .banner::after { content: ''; position: absolute; border-radius: 50%; }
+  .banner::before { width: 720px; height: 720px; left: -260px; top: -180px; background: rgba(255,255,255,.07); }
+  .banner::after { width: 900px; height: 900px; left: 34%; top: -140px; background: rgba(4,30,28,.35); }
+  .banner > * { position: relative; z-index: 1; }
+  .banner-kicker { display: flex; align-items: center; gap: 1rem; font-weight: 500; margin-bottom: 2.2rem; color: rgba(255,255,255,.9); }
+  .banner-kicker::before { content: ''; width: 56px; height: 1px; background: rgba(255,255,255,.8); }
+  .banner h2 { max-width: 17ch; margin-bottom: 2rem; }
+  .banner .vs { color: rgba(255,255,255,.82); margin-bottom: 2.6rem; font-size: 1.1rem; max-width: 46rem; }
+  .banner .vs strong { color: var(--mint); font-weight: 600; }
+  .bars { position: absolute; right: 5rem; bottom: 0; display: flex; align-items: end; gap: 12px; z-index: 1; }
+  .bars i { display: block; width: 64px; }
+  .bars i:nth-child(1) { height: 90px; background: rgba(255,255,255,.28); }
+  .bars i:nth-child(2) { height: 140px; background: rgba(255,255,255,.5); }
+  .bars i:nth-child(3) { height: 200px; background: rgba(255,255,255,.85); }
+
+  /* ---------- Footer ---------- */
+  footer { background: #1C1B1C; color: rgba(255,255,255,.7); margin-top: 5rem; padding: 4rem 0 2.5rem; }
+  .foot { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: 3rem; align-items: start; }
+  .foot .logo { color: #fff; margin-bottom: 1.2rem; }
+  .logo img { display: block; height: 34px; width: auto; }
+  @media (max-width: 600px) { .nav .logo img { height: 28px; } }
+  .foot p { max-width: 26rem; font-size: .95rem; }
+  .foot-links { display: grid; gap: .6rem; font-size: .95rem; }
+  .foot-links a { text-decoration: none; }
+  .foot-links a:hover { color: #fff; }
+  .foot-bottom { border-top: 1px solid rgba(255,255,255,.12); margin-top: 3rem; padding-top: 1.5rem; font-size: .85rem; }
+
+  /* ---------- Rotating badge ---------- */
+  .badge {
+    position: fixed; right: 26px; bottom: 26px; z-index: 70;
+    width: 132px; height: 132px; border-radius: 50%; background: var(--ink);
+    display: grid; place-items: center; text-decoration: none;
+    box-shadow: 0 12px 30px -10px rgba(0,0,0,.45);
+  }
+  .badge-ring { position: absolute; inset: 0; }
+  .badge-ring text { fill: #fff; font: 600 11.5px var(--body); letter-spacing: .14em; text-transform: uppercase; }
+  .badge-arrow { width: 54px; height: 34px; border-radius: 999px; background: #fff; display: grid; place-items: center; }
+  .badge-arrow svg { width: 18px; height: 18px; stroke: var(--ink); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  @media (prefers-reduced-motion: no-preference) {
+    .badge-ring { animation: spin 16s linear infinite; }
+    .badge:hover .badge-ring { animation-duration: 6s; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: auto; } .marquee-track .dup { display: none; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1020px) {
+    .nav-links, .nav-right .btn-nav { display: none; }
+    .menu-btn { display: grid; }
+    .panel { padding: 4rem 2rem; }
+    .split, .why { grid-template-columns: 1fr; gap: 3rem; }
+    .steps, .pains, .ucs { grid-template-columns: 1fr; }
+    .outcomes { grid-template-columns: 1fr 1fr; }
+    .proof { grid-template-columns: 1fr; gap: 2rem; }
+    .head-row { flex-direction: column; align-items: start; }
+    .banner { padding: 4rem 2rem 9rem; }
+    .bars { right: 2rem; }
+    .bars i { width: 44px; }
+    .foot { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 14px; }
+    .nav-shell { padding: 10px 12px 0; top: 8px; }
+    .hero { padding-top: 4rem; }
+    .proof { padding: 1.6rem 1.2rem; }
+    .stat { padding: .3rem .4rem; }
+    .stat span { font-size: .82rem; }
+    .panel { padding: 3rem 1.2rem; border-radius: 18px; }
+    .outcomes { grid-template-columns: 1fr; }
+    .oc { min-height: 0; }
+    .visual { padding: 1rem; min-height: 0; }
+    .feed-item { grid-template-columns: 36px 1fr; }
+    .feed-item .status { grid-column: 2; justify-self: start; }
+    .ch { width: 36px; height: 36px; }
+    .btn-main { padding: .95rem 1.2rem .9rem; font-size: .9rem; }
+    .badge { width: 96px; height: 96px; right: 14px; bottom: 14px; }
+    .badge-ring text { font-size: 10.5px; }
+    .badge-arrow { width: 40px; height: 26px; }
+    .banner { padding: 3.4rem 1.4rem 8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<div class="nav-shell">
+  <header class="nav">
+    <a href="index.html" class="logo" aria-label="Bloom home"><img src="logo.png" alt="Bloom" width="131" height="34"></a>
+    <ul class="nav-links">
+      <li><a href="#how" data-i18n="nav.how">How it works</a></li>
+      <li><a href="use-cases.html" data-i18n="nav.usecases">Use cases</a></li>
+      <li><a href="#why" data-i18n="nav.why">Why Bloom</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      </div>
+      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
+      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="#how" data-i18n="nav.how">How it works</a>
+    <a href="use-cases.html" data-i18n="nav.usecases">Use cases</a>
+    <a href="#why" data-i18n="nav.why">Why Bloom</a>
+    <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
+  </nav>
+</div>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">
+      <span class="dot"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span>
+      <span data-i18n="hero.tag">Customer support &amp; lead automation</span>
+    </span>
+    <h1 data-i18n-html="hero.title">Every customer and every lead, <mark>taken care of.</mark></h1>
+    <p class="lead" data-i18n="hero.sub">We automate your emails, messages and calls so no lead or customer slips through, and your team saves hours every week.</p>
+    <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main">
+      <span data-i18n="cta.book">Let’s talk</span>
+      <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </a>
+
+    <div class="proof">
+      <div class="proof-chan">
+        <p data-i18n="proof.title">On every channel your customers use</p>
+        <div class="chips">
+          <span class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>Email</span>
+          <span class="chip"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12z"/></svg>WhatsApp</span>
+          <span class="chip"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/></svg>Telegram</span>
+          <span class="chip"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span data-i18n="chan.phone">Phone</span></span>
+          <span class="chip"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg><span data-i18n="chan.form">Web forms</span></span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>24/7</b><span data-i18n="stat.1">Always answering</span></div>
+        <div class="stat"><b>&lt;1 min</b><span data-i18n="stat.2">First reply</span></div>
+        <div class="stat"><b>0</b><span data-i18n="stat.3">Leads left waiting</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tools marquee -->
+<section class="tools" aria-label="Tools">
+  <p data-i18n="tools.title">Works with the tools you already use</p>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>Gmail</span><span>Outlook</span><span>WhatsApp</span><span>HubSpot</span><span>Pipedrive</span><span>Salesforce</span><span>Zendesk</span><span>Freshdesk</span><span>Intercom</span><span>Excel</span><span>Google Sheets</span><span>Slack</span><span>Teams</span><span>Calendly</span><span>Google Calendar</span><span>Pennylane</span>
+      <span class="dup" aria-hidden="true">Gmail</span><span class="dup" aria-hidden="true">Outlook</span><span class="dup" aria-hidden="true">WhatsApp</span><span class="dup" aria-hidden="true">HubSpot</span><span class="dup" aria-hidden="true">Pipedrive</span><span class="dup" aria-hidden="true">Salesforce</span><span class="dup" aria-hidden="true">Zendesk</span><span class="dup" aria-hidden="true">Freshdesk</span><span class="dup" aria-hidden="true">Intercom</span><span class="dup" aria-hidden="true">Excel</span><span class="dup" aria-hidden="true">Google Sheets</span><span class="dup" aria-hidden="true">Slack</span><span class="dup" aria-hidden="true">Teams</span><span class="dup" aria-hidden="true">Calendly</span><span class="dup" aria-hidden="true">Google Calendar</span><span class="dup" aria-hidden="true">Pennylane</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="panel">
+      <div class="split">
+        <div>
+          <span class="tag" data-i18n="how.tag">How it works</span>
+          <h2 data-i18n-html="how.title">Simple for you, built around <mark>your business</mark></h2>
+          <p class="lead" data-i18n="how.sub">You don’t need to change your tools or train your team. We plug into what you already use, handle the setup, and keep it running.</p>
+          <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main">
+            <span data-i18n="cta.book">Let’s talk</span>
+            <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          </a>
+        </div>
+
+        <div class="visual" aria-label="Example of customer requests handled automatically">
+          <div class="feed">
+            <div class="feed-head">
+              <span><span class="live"></span><strong data-i18n="feed.title">Your inbox, tonight</strong></span>
+              <span data-i18n="feed.time">9:47 pm</span>
+            </div>
+            <ul class="feed-list">
+              <li class="feed-item">
+                <div class="ch"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+                <div><div class="f-meta" data-i18n="feed.1.meta">Email</div><div class="f-msg" data-i18n="feed.1.msg">“Has my order #4821 shipped yet?”</div></div>
+                <span class="status"><span class="new" data-i18n="feed.new">New</span><span class="done" data-i18n="feed.1.done">Answered in 40s</span></span>
+              </li>
+              <li class="feed-item">
+                <div class="ch"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12z"/></svg></div>
+                <div><div class="f-meta">WhatsApp</div><div class="f-msg" data-i18n="feed.2.msg">“Any slots free on Saturday morning?”</div></div>
+                <span class="status"><span class="new" data-i18n="feed.new">New</span><span class="done" data-i18n="feed.2.done">Booked for 10:00</span></span>
+              </li>
+              <li class="feed-item">
+                <div class="ch"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+                <div><div class="f-meta" data-i18n="feed.3.meta">Phone call</div><div class="f-msg" data-i18n="feed.3.msg">New caller asking for a quote</div></div>
+                <span class="status"><span class="new" data-i18n="feed.new">New</span><span class="done" data-i18n="feed.3.done">Lead qualified</span></span>
+              </li>
+              <li class="feed-item">
+                <div class="ch"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg></div>
+                <div><div class="f-meta" data-i18n="feed.4.meta">Website form</div><div class="f-msg" data-i18n="feed.4.msg">Quote request from a new client</div></div>
+                <span class="status"><span class="new" data-i18n="feed.new">New</span><span class="done" data-i18n="feed.4.done">Followed up in 2 min</span></span>
+              </li>
+            </ul>
+            <div class="feed-foot"><span data-i18n="feed.foot.l">Handled while you were offline</span><span><b>0</b> <span data-i18n="feed.foot.r">missed</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-top"><span class="tag" data-i18n="step.1.tag">Step 1</span><span class="arrow"></span></div>
+          <h3 data-i18n="step.1.title">Free call</h3>
+          <p data-i18n="step.1.text">We look at where you’re losing time and leads today, and what’s worth automating first.</p>
+        </div>
+        <div class="step">
+          <div class="step-top"><span class="tag" data-i18n="step.2.tag">Step 2</span><span class="arrow"></span></div>
+          <h3 data-i18n="step.2.title">We build it</h3>
+          <p data-i18n="step.2.text">Connected to the tools you already use: your inbox, phone line, CRM and messaging apps.</p>
+        </div>
+        <div class="step">
+          <div class="step-top"><span class="tag" data-i18n="step.3.tag">Step 3</span><span class="arrow"></span></div>
+          <h3 data-i18n="step.3.title">We run it</h3>
+          <p data-i18n="step.3.text">We test it on real requests, then monitor and improve it as your business grows.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section">
+  <div class="wrap" style="padding-top:3.5rem">
+    <span class="tag" data-i18n="problem.tag">The problem</span>
+    <div class="head-row">
+      <h2 data-i18n-html="problem.title">Your customers don’t wait. <mark>Your team can’t be everywhere.</mark></h2>
+    </div>
+    <div class="pains">
+      <div class="pain">
+        <div class="pain-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3 data-i18n="problem.1.title">Leads go cold.</h3>
+        <p data-i18n="problem.1">A prospect who waits hours for a reply often signs with whoever answers first.</p>
+      </div>
+      <div class="pain">
+        <div class="pain-ic"><svg viewBox="0 0 24 24"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div>
+        <h3 data-i18n="problem.2.title">Your team answers the same questions.</h3>
+        <p data-i18n="problem.2">Order status, opening hours, prices: hours every week on questions a system could handle.</p>
+      </div>
+      <div class="pain">
+        <div class="pain-ic"><svg viewBox="0 0 24 24"><path d="M10.7 13.3a16 16 0 0 0 3.4 2.6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-4.3-3.6"/><path d="M5.2 13.3A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8"/><path d="M22 2 2 22"/></svg></div>
+        <h3 data-i18n="problem.3.title">Calls go unanswered after hours.</h3>
+        <p data-i18n="problem.3">Evenings and weekends go to voicemail, and many callers never leave a message.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES ============ -->
+<section class="section">
+  <div class="wrap" style="padding-top:3.5rem">
+    <span class="tag" data-i18n="out.tag">What you get</span>
+    <div class="head-stack">
+      <h2 data-i18n-html="out.title">What <mark>changes</mark> for your business</h2>
+      <p class="lead" data-i18n="out.sub">AI and automation are just the tools. This is what you actually get.</p>
+    </div>
+    <div class="outcomes">
+      <article class="oc oc-feature">
+        <div class="big">24/7</div>
+        <div>
+          <h3 data-i18n="out.1.title">Never miss a lead</h3>
+          <p style="margin-top:.7rem" data-i18n="out.1.text">Every enquiry is captured, qualified and followed up within minutes, even at night and on weekends.</p>
+        </div>
+      </article>
+      <article class="oc">
+        <div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+        <div><h3 data-i18n="out.2.title">Happier customers</h3><p style="margin-top:.7rem" data-i18n="out.2.text">Instant answers on the channel they prefer, with a real person stepping in whenever it matters.</p></div>
+      </article>
+      <article class="oc">
+        <div class="oc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div><h3 data-i18n="out.3.title">Hours back every week</h3><p style="margin-top:.7rem" data-i18n="out.3.text">Repetitive questions and admin are handled for you, so your team can focus on real work.</p></div>
+      </article>
+      <article class="oc">
+        <div class="oc-ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div>
+        <div><h3 data-i18n="out.4.title">Lower costs</h3><p style="margin-top:.7rem" data-i18n="out.4.text">Grow without hiring for every new wave of requests.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ USE CASES ============ -->
+<section class="section">
+  <div class="wrap" style="padding-top:2rem">
+    <div class="panel">
+      <span class="tag" data-i18n="uc.tag">Use cases</span>
+      <div class="head-row">
+        <h2 data-i18n-html="uc.title">Built for <mark>real customer</mark> problems</h2>
+        <a href="use-cases.html" class="btn btn-outline"><span data-i18n="uc.all">See all</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="ucs">
+        <a class="uc" href="use-cases.html#leads">
+          <span class="tag" data-i18n="uc.1.tag">New leads</span>
+          <h3 data-i18n="uc.1.title">Turn more enquiries into clients</h3>
+          <p data-i18n="uc.1.text">Instant replies, qualification and follow-ups, so no lead goes cold.</p>
+          <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="uc" href="use-cases.html#support">
+          <span class="tag" data-i18n="uc.2.tag">Customer support</span>
+          <h3 data-i18n="uc.2.title">Support that never sleeps</h3>
+          <p data-i18n="uc.2.text">Email, WhatsApp, Telegram or phone: customers get answers in seconds.</p>
+          <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+        <a class="uc" href="use-cases.html#assistant">
+          <span class="tag" data-i18n="uc.3.tag">Your team</span>
+          <h3 data-i18n="uc.3.title">Every customer, on one screen</h3>
+          <p data-i18n="uc.3.text">An assistant that pulls emails, tickets, leads and invoices together for your team.</p>
+          <span class="uc-more"><span data-i18n="uc.more">Learn more</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY BLOOM ============ -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="panel">
+      <div class="why">
+        <div class="why-left">
+          <span class="tag" data-i18n="why.tag">Why Bloom</span>
+          <h2 data-i18n-html="why.title">Automation you can <mark>trust</mark> with your customers</h2>
+          <div class="cust" aria-label="Example customer card">
+            <div class="cust-top">
+              <div class="avatar">MD</div>
+              <div><b>Marie Dupont</b><span data-i18n="cust.co">Dupont Interiors · Client since 2024</span></div>
+            </div>
+            <p class="cust-label" data-i18n="cust.label">Everything about this customer, in one place</p>
+            <ul class="cust-rows">
+              <li><span data-i18n="cust.1">Last email: delivery date question</span><span class="pill-ok" data-i18n="cust.1s">Answered</span></li>
+              <li><span data-i18n="cust.2">WhatsApp: new quote request</span><span data-i18n="cust.2s">Today</span></li>
+              <li><span data-i18n="cust.3">Invoice #2031</span><span class="pill-ok" data-i18n="cust.3s">Paid</span></li>
+              <li><span data-i18n="cust.4">Next step</span><span data-i18n="cust.4s">Call Thursday</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="checks">
+          <div class="check"><p data-i18n-html="why.1">A <strong>real person takes over</strong> whenever a customer needs one. Nothing important is left to a bot.</p><span class="check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="check"><p data-i18n-html="why.2">We <strong>plug into your existing tools</strong>: inbox, phone line, CRM, messaging apps. No new software to learn.</p><span class="check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="check"><p data-i18n-html="why.3">Your data stays protected, with a <strong>GDPR-compliant setup</strong> and European hosting where possible.</p><span class="check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+          <div class="check"><p data-i18n-html="why.4">We don’t disappear after launch. <strong>We monitor and improve</strong> everything as your business grows.</p><span class="check-ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL BANNER ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="banner">
+      <p class="banner-kicker" data-i18n="final.kicker">Grow without the busywork</p>
+      <h2 data-i18n="final.title">How many leads did you miss this week?</h2>
+      <p class="vs" data-i18n-html="final.vs"><strong>Without Bloom:</strong> slow replies, missed calls, a team buried in the same questions.<br><strong>With Bloom:</strong> every customer answered, every lead followed up, hours back every week.</p>
+      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main">
+        <span data-i18n="cta.book">Let’s talk</span>
+        <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a href="index.html" class="logo"><img src="logo-light.png" alt="Bloom" width="131" height="34"></a>
+        <p data-i18n="foot.desc">We automate customer support and lead follow-up for small and mid-size businesses, so every customer gets an answer.</p>
+      </div>
+      <div class="foot-links">
+        <a href="#how" data-i18n="nav.how">How it works</a>
+        <a href="use-cases.html" data-i18n="nav.usecases">Use cases</a>
+        <a href="#why" data-i18n="nav.why">Why Bloom</a>
+      </div>
+      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main"><span data-i18n="cta.book">Let’s talk</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+    <div class="foot-bottom">© 2026 Bloom</div>
+  </div>
+</footer>
+
+<!-- Rotating "book a call" badge -->
+<a class="badge" href="https://cal.com/bloom/30min" target="_blank" rel="noopener" aria-label="Let’s talk">
+  <svg class="badge-ring" viewBox="0 0 132 132" aria-hidden="true">
+    <defs><path id="circ" d="M66,66 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+    <text><textPath href="#circ" textLength="306" data-i18n="badge.text">Let’s talk • Let’s talk • Let’s talk •</textPath></text>
+  </svg>
+  <span class="badge-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+</a>
+
+<script>
+(function () {
+  document.documentElement.classList.add('js');
+
+  var T = {
+    en: {
+      'meta.title': 'Bloom — Every customer answered, every lead followed up',
+      'nav.how': 'How it works', 'nav.usecases': 'Use cases', 'nav.why': 'Why Bloom',
+      'cta.book': 'Let’s talk',
+      'hero.tag': 'Customer support & lead automation',
+      'hero.title': 'Every customer and every lead, <mark>taken care of.</mark>',
+      'hero.sub': 'We automate your emails, messages and calls so no lead or customer slips through, and your team saves hours every week.',
+      'proof.title': 'On every channel your customers use',
+      'chan.phone': 'Phone', 'chan.form': 'Web forms',
+      'stat.1': 'Always answering', 'stat.2': 'First reply', 'stat.3': 'Leads left waiting',
+      'tools.title': 'Works with the tools you already use',
+      'how.tag': 'How it works',
+      'how.title': 'Simple for you, built around <mark>your business</mark>',
+      'how.sub': 'You don’t need to change your tools or train your team. We plug into what you already use, handle the setup, and keep it running.',
+      'feed.title': 'Your inbox, tonight', 'feed.time': '9:47 pm', 'feed.new': 'New',
+      'feed.1.meta': 'Email', 'feed.1.msg': '“Has my order #4821 shipped yet?”', 'feed.1.done': 'Answered in 40s',
+      'feed.2.msg': '“Any slots free on Saturday morning?”', 'feed.2.done': 'Booked for 10:00',
+      'feed.3.meta': 'Phone call', 'feed.3.msg': 'New caller asking for a quote', 'feed.3.done': 'Lead qualified',
+      'feed.4.meta': 'Website form', 'feed.4.msg': 'Quote request from a new client', 'feed.4.done': 'Followed up in 2 min',
+      'feed.foot.l': 'Handled while you were offline', 'feed.foot.r': 'missed',
+      'step.1.tag': 'Step 1', 'step.1.title': 'Free call', 'step.1.text': 'We look at where you’re losing time and leads today, and what’s worth automating first.',
+      'step.2.tag': 'Step 2', 'step.2.title': 'We build it', 'step.2.text': 'Connected to the tools you already use: your inbox, phone line, CRM and messaging apps.',
+      'step.3.tag': 'Step 3', 'step.3.title': 'We run it', 'step.3.text': 'We test it on real requests, then monitor and improve it as your business grows.',
+      'problem.tag': 'The problem',
+      'problem.title': 'Your customers don’t wait. <mark>Your team can’t be everywhere.</mark>',
+      'problem.1.title': 'Leads go cold.', 'problem.1': 'A prospect who waits hours for a reply often signs with whoever answers first.',
+      'problem.2.title': 'Your team answers the same questions.', 'problem.2': 'Order status, opening hours, prices: hours every week on questions a system could handle.',
+      'problem.3.title': 'Calls go unanswered after hours.', 'problem.3': 'Evenings and weekends go to voicemail, and many callers never leave a message.',
+      'out.tag': 'What you get',
+      'out.title': 'What <mark>changes</mark> for your business',
+      'out.sub': 'AI and automation are just the tools. This is what you actually get.',
+      'out.1.title': 'Never miss a lead', 'out.1.text': 'Every enquiry is captured, qualified and followed up within minutes, even at night and on weekends.',
+      'out.2.title': 'Happier customers', 'out.2.text': 'Instant answers on the channel they prefer, with a real person stepping in whenever it matters.',
+      'out.3.title': 'Hours back every week', 'out.3.text': 'Repetitive questions and admin are handled for you, so your team can focus on real work.',
+      'out.4.title': 'Lower costs', 'out.4.text': 'Grow without hiring for every new wave of requests.',
+      'uc.tag': 'Use cases',
+      'uc.title': 'Built for <mark>real customer</mark> problems',
+      'uc.all': 'See all', 'uc.more': 'Learn more',
+      'uc.1.tag': 'New leads', 'uc.1.title': 'Turn more enquiries into clients', 'uc.1.text': 'Instant replies, qualification and follow-ups, so no lead goes cold.',
+      'uc.2.tag': 'Customer support', 'uc.2.title': 'Support that never sleeps', 'uc.2.text': 'Email, WhatsApp, Telegram or phone: customers get answers in seconds.',
+      'uc.3.tag': 'Your team', 'uc.3.title': 'Every customer, on one screen', 'uc.3.text': 'An assistant that pulls emails, tickets, leads and invoices together for your team.',
+      'why.tag': 'Why Bloom',
+      'why.title': 'Automation you can <mark>trust</mark> with your customers',
+      'cust.co': 'Dupont Interiors · Client since 2024',
+      'cust.label': 'Everything about this customer, in one place',
+      'cust.1': 'Last email: delivery date question', 'cust.1s': 'Answered',
+      'cust.2': 'WhatsApp: new quote request', 'cust.2s': 'Today',
+      'cust.3': 'Invoice #2031', 'cust.3s': 'Paid',
+      'cust.4': 'Next step', 'cust.4s': 'Call Thursday',
+      'why.1': 'A <strong>real person takes over</strong> whenever a customer needs one. Nothing important is left to a bot.',
+      'why.2': 'We <strong>plug into your existing tools</strong>: inbox, phone line, CRM, messaging apps. No new software to learn.',
+      'why.3': 'Your data stays protected, with a <strong>GDPR-compliant setup</strong> and European hosting where possible.',
+      'why.4': 'We don’t disappear after launch. <strong>We monitor and improve</strong> everything as your business grows.',
+      'final.kicker': 'Grow without the busywork',
+      'final.title': 'How many leads did you miss this week?',
+      'final.vs': '<strong>Without Bloom:</strong> slow replies, missed calls, a team buried in the same questions.<br><strong>With Bloom:</strong> every customer answered, every lead followed up, hours back every week.',
+      'foot.desc': 'We automate customer support and lead follow-up for small and mid-size businesses, so every customer gets an answer.',
+      'badge.text': 'Let’s talk • Let’s talk • Let’s talk •'
+    },
+    fr: {
+      'meta.title': 'Bloom — Chaque client a sa réponse, chaque prospect est relancé',
+      'nav.how': 'Comment ça marche', 'nav.usecases': 'Cas d’usage', 'nav.why': 'Pourquoi Bloom',
+      'cta.book': 'Contactez-nous',
+      'hero.tag': 'Automatisation du service client et des prospects',
+      'hero.title': 'Chaque client et chaque prospect, <mark>pris en charge.</mark>',
+      'hero.sub': 'Nous automatisons vos emails, messages et appels pour qu’aucun prospect ni client ne vous échappe, et votre équipe gagne des heures chaque semaine.',
+      'proof.title': 'Sur tous les canaux de vos clients',
+      'chan.phone': 'Téléphone', 'chan.form': 'Formulaires',
+      'stat.1': 'Toujours disponible', 'stat.2': 'Première réponse', 'stat.3': 'Prospect laissé en attente',
+      'tools.title': 'Compatible avec vos outils actuels',
+      'how.tag': 'Comment ça marche',
+      'how.title': 'Simple pour vous, pensé pour <mark>votre entreprise</mark>',
+      'how.sub': 'Pas besoin de changer d’outils ni de former votre équipe. Nous nous branchons sur l’existant, gérons la mise en place et faisons tout tourner.',
+      'feed.title': 'Votre boîte de réception, ce soir', 'feed.time': '21h47', 'feed.new': 'Nouveau',
+      'feed.1.meta': 'Email', 'feed.1.msg': '« Ma commande n°4821 est-elle partie ? »', 'feed.1.done': 'Répondu en 40 s',
+      'feed.2.msg': '« Vous avez un créneau samedi matin ? »', 'feed.2.done': 'Réservé à 10h',
+      'feed.3.meta': 'Appel téléphonique', 'feed.3.msg': 'Nouvel appelant qui demande un devis', 'feed.3.done': 'Prospect qualifié',
+      'feed.4.meta': 'Formulaire du site', 'feed.4.msg': 'Demande de devis d’un nouveau client', 'feed.4.done': 'Relancé en 2 min',
+      'feed.foot.l': 'Traité pendant votre absence', 'feed.foot.r': 'manqué',
+      'step.1.tag': 'Étape 1', 'step.1.title': 'Appel gratuit', 'step.1.text': 'Nous identifions où vous perdez du temps et des prospects aujourd’hui, et ce qu’il faut automatiser en premier.',
+      'step.2.tag': 'Étape 2', 'step.2.title': 'Nous le construisons', 'step.2.text': 'Connecté aux outils que vous utilisez déjà : boîte mail, ligne téléphonique, CRM et messageries.',
+      'step.3.tag': 'Étape 3', 'step.3.title': 'Nous le faisons vivre', 'step.3.text': 'Nous le testons sur de vraies demandes, puis nous le suivons et l’améliorons à mesure que vous grandissez.',
+      'problem.tag': 'Le problème',
+      'problem.title': 'Vos clients n’attendent pas. <mark>Votre équipe ne peut pas être partout.</mark>',
+      'problem.1.title': 'Les prospects refroidissent.', 'problem.1': 'Un prospect qui attend des heures une réponse signe souvent avec le premier qui répond.',
+      'problem.2.title': 'Votre équipe répond aux mêmes questions.', 'problem.2': 'Suivi de commande, horaires, tarifs\u00a0: des heures chaque semaine sur des questions qu’un système pourrait gérer.',
+      'problem.3.title': 'Les appels restent sans réponse le soir.', 'problem.3': 'Le soir et le week-end, tout part sur la messagerie, et beaucoup d’appelants ne laissent pas de message.',
+      'out.tag': 'Ce que vous y gagnez',
+      'out.title': 'Ce qui <mark>change</mark> pour votre entreprise',
+      'out.sub': 'L’IA et l’automatisation ne sont que des outils. Voici ce que vous y gagnez vraiment.',
+      'out.1.title': 'Plus aucun prospect manqué', 'out.1.text': 'Chaque demande est enregistrée, qualifiée et relancée en quelques minutes, même la nuit et le week-end.',
+      'out.2.title': 'Des clients plus satisfaits', 'out.2.text': 'Des réponses immédiates sur le canal qu’ils préfèrent, avec un humain qui prend le relais quand c’est important.',
+      'out.3.title': 'Des heures gagnées chaque semaine', 'out.3.text': 'Les questions répétitives et l’administratif sont gérés pour vous : votre équipe se concentre sur l’essentiel.',
+      'out.4.title': 'Des coûts réduits', 'out.4.text': 'Grandissez sans recruter à chaque nouvelle vague de demandes.',
+      'uc.tag': 'Cas d’usage',
+      'uc.title': 'Conçu pour de <mark>vrais problèmes</mark> clients',
+      'uc.all': 'Tout voir', 'uc.more': 'En savoir plus',
+      'uc.1.tag': 'Nouveaux prospects', 'uc.1.title': 'Transformez plus de demandes en clients', 'uc.1.text': 'Réponses immédiates, qualification et relances : aucun prospect ne refroidit.',
+      'uc.2.tag': 'Service client', 'uc.2.title': 'Un support qui ne dort jamais', 'uc.2.text': 'Email, WhatsApp, Telegram ou téléphone : vos clients ont une réponse en quelques secondes.',
+      'uc.3.tag': 'Votre équipe', 'uc.3.title': 'Chaque client, sur un seul écran', 'uc.3.text': 'Un assistant qui rassemble emails, tickets, prospects et factures pour votre équipe.',
+      'why.tag': 'Pourquoi Bloom',
+      'why.title': 'Une automatisation à qui <mark>confier</mark> vos clients',
+      'cust.co': 'Dupont Intérieurs · Cliente depuis 2024',
+      'cust.label': 'Tout sur ce client, au même endroit',
+      'cust.1': 'Dernier email : question sur la livraison', 'cust.1s': 'Répondu',
+      'cust.2': 'WhatsApp : nouvelle demande de devis', 'cust.2s': 'Aujourd’hui',
+      'cust.3': 'Facture n°2031', 'cust.3s': 'Payée',
+      'cust.4': 'Prochaine étape', 'cust.4s': 'Appel jeudi',
+      'why.1': 'Un <strong>humain prend le relais</strong> dès qu’un client en a besoin. Rien d’important n’est laissé à un robot.',
+      'why.2': 'Nous nous <strong>branchons sur vos outils</strong> : boîte mail, téléphone, CRM, messageries. Aucun nouveau logiciel à apprendre.',
+      'why.3': 'Vos données restent protégées, avec une <strong>mise en place conforme au RGPD</strong> et un hébergement en Europe lorsque c’est possible.',
+      'why.4': 'Nous ne disparaissons pas après le lancement. <strong>Nous suivons et améliorons</strong> tout à mesure que vous grandissez.',
+      'final.kicker': 'Grandir sans les tâches répétitives',
+      'final.title': 'Combien de prospects avez-vous manqués cette semaine ?',
+      'final.vs': '<strong>Sans Bloom :</strong> réponses lentes, appels manqués, une équipe noyée sous les mêmes questions.<br><strong>Avec Bloom :</strong> chaque client a sa réponse, chaque prospect est relancé, et vous gagnez des heures chaque semaine.',
+      'foot.desc': 'Nous automatisons le service client et la relance des prospects pour les TPE et PME, pour que chaque client obtienne une réponse.',
+      'badge.text': 'Contactez-nous • Contactez-nous •'
+    }
+  };
+
+  var buttons = document.querySelectorAll('.lang button');
+
+  function setLang(lang) {
+    if (!T[lang]) lang = 'en';
+    var d = T[lang];
+    document.documentElement.lang = lang;
+    document.title = d['meta.title'];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n'); if (d[k] != null) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n-html'); if (d[k] != null) el.innerHTML = d[k];
+    });
+    var badge = document.querySelector('.badge');
+    if (badge) badge.setAttribute('aria-label', d['cta.book']);
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang ? 'true' : 'false'); });
+    try { localStorage.setItem('bloom-lang', lang); } catch (e) {}
+  }
+
+  function initialLang() {
+    var p = new URLSearchParams(location.search).get('lang');
+    if (p) return p;
+    try { var s = localStorage.getItem('bloom-lang'); if (s) return s; } catch (e) {}
+    return (navigator.language || 'en').toLowerCase().indexOf('fr') === 0 ? 'fr' : 'en';
+  }
+
+  buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); }); });
+  setLang(initialLang());
+
+  /* Mobile menu */
+  var menuBtn = document.querySelector('.menu-btn'), menu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () {
+    var open = menu.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }); });
+
+  /* Inbox feed: plays once when it scrolls into view */
+  var items = document.querySelectorAll('.feed-item');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function play() {
+    items.forEach(function (it, i) {
+      setTimeout(function () { it.classList.add('in'); }, 150 + i * 450);
+      setTimeout(function () { it.classList.add('resolved'); }, 1300 + i * 650);
+    });
+  }
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function (it) { it.classList.add('in', 'resolved'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { play(); io.disconnect(); }
+    }, { threshold: 0.35 });
+    io.observe(document.querySelector('.feed'));
+  }
+})();
+</script>
+</body>
+</html>
