@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <!--
-  CALENDAR LINK: replace every "https://cal.com/bloom/30min" in this file with your real Cal link.
+  CONTACT FORMS: Tally form IDs are in the FORMS line near the end of this file (fr / en).
   PLACEHOLDER METRICS: all result numbers are fake for now. Search for "m." keys in the script at the bottom.
 -->
 <style>
@@ -467,7 +467,7 @@
         <button type="button" data-lang="fr" aria-pressed="true">FR</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
+      <a href="https://tally.so/r/bZWxx6" target="_blank" rel="noopener" data-contact class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
     </div>
   </header>
@@ -475,7 +475,7 @@
     <a href="index.html#how" data-i18n="nav.how">How it works</a>
     <a href="use-cases.html" data-i18n="nav.usecases">Use cases</a>
     <a href="index.html#why" data-i18n="nav.why">Why Bloom</a>
-    <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
+    <a href="https://tally.so/r/bZWxx6" target="_blank" rel="noopener" data-contact class="btn btn-nav" data-i18n="cta.book">Let’s talk</a>
   </nav>
 </div>
 
@@ -697,7 +697,7 @@
       <p class="banner-kicker" data-i18n="final.kicker">Grow without the busywork</p>
       <h2 data-i18n="final.title">How many leads did you miss this week?</h2>
       <p class="vs" data-i18n-html="final.vs"><strong>Without Bloom:</strong> slow replies, missed calls, a team buried in the same questions.<br><strong>With Bloom:</strong> every customer answered, every lead followed up, hours back every week.</p>
-      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main">
+      <a href="https://tally.so/r/bZWxx6" target="_blank" rel="noopener" data-contact class="btn btn-main">
         <span data-i18n="cta.book">Let’s talk</span>
         <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
@@ -720,14 +720,14 @@
         <a href="use-cases.html" data-i18n="nav.usecases">Use cases</a>
         <a href="index.html#why" data-i18n="nav.why">Why Bloom</a>
       </div>
-      <a href="https://cal.com/bloom/30min" target="_blank" rel="noopener" class="btn btn-main"><span data-i18n="cta.book">Let’s talk</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a href="https://tally.so/r/bZWxx6" target="_blank" rel="noopener" data-contact class="btn btn-main"><span data-i18n="cta.book">Let’s talk</span><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
     </div>
     <div class="foot-bottom">© 2026 Bloom</div>
   </div>
 </footer>
 
 <!-- Rotating "book a call" badge -->
-<a class="badge" href="https://cal.com/bloom/30min" target="_blank" rel="noopener" aria-label="Let’s talk">
+<a class="badge" href="https://tally.so/r/bZWxx6" target="_blank" rel="noopener" data-contact aria-label="Let’s talk">
   <svg class="badge-ring" viewBox="0 0 132 132" aria-hidden="true">
     <defs><path id="circ" d="M66,66 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
     <text><textPath href="#circ" textLength="306" data-i18n="badge.text">Let’s talk • Let’s talk • Let’s talk •</textPath></text>
@@ -967,6 +967,28 @@
     menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
   menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { menu.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }); });
+})();
+</script>
+<!-- CONTACT FORMS (Tally): French and English forms, opened as a popup in the visitor's language -->
+<script async src="https://tally.so/widgets/embed.js"></script>
+<script>
+(function () {
+  var FORMS = { fr: 'bZWxx6', en: 'LDPWGl' };
+  function formId() { return document.documentElement.lang === 'en' ? FORMS.en : FORMS.fr; }
+  function syncLinks() {
+    document.querySelectorAll('[data-contact]').forEach(function (a) { a.href = 'https://tally.so/r/' + formId(); });
+  }
+  syncLinks();
+  new MutationObserver(syncLinks).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('[data-contact]');
+    if (!a) return;
+    if (window.Tally && typeof window.Tally.openPopup === 'function') {
+      e.preventDefault();
+      window.Tally.openPopup(formId(), { layout: 'modal', width: 600, overlay: true });
+    }
+    /* if Tally hasn't loaded, the link simply opens the form in a new tab */
+  });
 })();
 </script>
 </body>
