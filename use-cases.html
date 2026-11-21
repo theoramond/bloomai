@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cas d’usage — Bloom</title>
+<title>Bloom AI</title>
 <meta name="description" content="Customer support, lead management, voice agents and team assistants: automations Bloom has built for small and mid-size businesses.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -175,13 +175,13 @@
   .ch svg { width: 19px; height: 19px; stroke: var(--forest); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .f-meta { font-size: .75rem; color: var(--ink-3); }
   .f-msg { font-size: .92rem; font-weight: 500; line-height: 1.35; }
-  .status { font-size: .75rem; font-weight: 600; white-space: nowrap; padding: .3rem .6rem; border-radius: 999px; background: #FFF1D1; color: #7A5300; transition: background .35s, color .35s; }
-  .status { display: inline-grid; text-align: center; }
-  .status > span { grid-area: 1 / 1; }
-  .status .done { visibility: hidden; }
-  .feed-item.resolved .status { background: #D3F5EE; color: var(--forest); }
-  .feed-item.resolved .status .new { visibility: hidden; }
-  .feed-item.resolved .status .done { visibility: visible; }
+  /* Status slot keeps a fixed width so the row never reflows; each pill hugs its own text */
+  .status { display: inline-grid; font-size: .75rem; font-weight: 600; white-space: nowrap; }
+  .status > span { grid-area: 1 / 1; justify-self: end; padding: .3rem .6rem; border-radius: 999px; transition: opacity .3s; }
+  .status .new { background: #FFF1D1; color: #7A5300; }
+  .status .done { background: #D3F5EE; color: var(--forest); opacity: 0; }
+  .feed-item.resolved .status .new { opacity: 0; }
+  .feed-item.resolved .status .done { opacity: 1; }
   .feed-foot { display: flex; justify-content: space-between; color: rgba(255,255,255,.7); font-size: .86rem; padding: 1rem .3rem 0; }
   .feed-foot b { color: #fff; }
   @media (prefers-reduced-motion: no-preference) {
@@ -345,6 +345,7 @@
     .visual { padding: 1rem; min-height: 0; }
     .feed-item { grid-template-columns: 36px 1fr; }
     .feed-item .status { grid-column: 2; justify-self: start; }
+    .feed-item .status > span { justify-self: start; }
     .ch { width: 36px; height: 36px; }
     .btn-main { padding: .95rem 1.2rem .9rem; font-size: .9rem; }
     .badge { width: 96px; height: 96px; right: 14px; bottom: 14px; }
@@ -728,7 +729,7 @@
   /* Translations. The "m." keys are PLACEHOLDER METRICS: replace them with real numbers in both languages. */
   var T = {
   "en": {
-    "meta.title": "Bloom — Every customer answered, every lead followed up",
+    "meta.title": "Bloom AI",
     "hero.tag": "Use cases",
     "hero.title": "Real projects, <mark>real time saved.</mark>",
     "hero.sub": "Automations we’ve built for businesses like yours, from the first enquiry to the weekly report.",
@@ -825,7 +826,7 @@
     "badge.text": "Let’s talk • Let’s talk • Let’s talk •"
   },
   "fr": {
-    "meta.title": "Bloom — Chaque client a sa réponse, chaque prospect est relancé",
+    "meta.title": "Bloom AI",
     "hero.tag": "Cas d’usage",
     "hero.title": "Des projets réels, <mark>du temps gagné.</mark>",
     "hero.sub": "Des automatisations que nous avons construites pour des entreprises comme la vôtre, de la première demande au rapport hebdomadaire.",

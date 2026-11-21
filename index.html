@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bloom — Every customer answered, every lead followed up</title>
+<title>Bloom AI</title>
 <meta name="description" content="Bloom automates your customer emails, messages and calls so your team saves time, cuts costs and never misses a lead.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
@@ -174,13 +174,13 @@
   .ch svg { width: 19px; height: 19px; stroke: var(--forest); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .f-meta { font-size: .75rem; color: var(--ink-3); }
   .f-msg { font-size: .92rem; font-weight: 500; line-height: 1.35; }
-  .status { font-size: .75rem; font-weight: 600; white-space: nowrap; padding: .3rem .6rem; border-radius: 999px; background: #FFF1D1; color: #7A5300; transition: background .35s, color .35s; }
-  .status { display: inline-grid; text-align: center; }
-  .status > span { grid-area: 1 / 1; }
-  .status .done { visibility: hidden; }
-  .feed-item.resolved .status { background: #D3F5EE; color: var(--forest); }
-  .feed-item.resolved .status .new { visibility: hidden; }
-  .feed-item.resolved .status .done { visibility: visible; }
+  /* Status slot keeps a fixed width so the row never reflows; each pill hugs its own text */
+  .status { display: inline-grid; font-size: .75rem; font-weight: 600; white-space: nowrap; }
+  .status > span { grid-area: 1 / 1; justify-self: end; padding: .3rem .6rem; border-radius: 999px; transition: opacity .3s; }
+  .status .new { background: #FFF1D1; color: #7A5300; }
+  .status .done { background: #D3F5EE; color: var(--forest); opacity: 0; }
+  .feed-item.resolved .status .new { opacity: 0; }
+  .feed-item.resolved .status .done { opacity: 1; }
   .feed-foot { display: flex; justify-content: space-between; color: rgba(255,255,255,.7); font-size: .86rem; padding: 1rem .3rem 0; }
   .feed-foot b { color: #fff; }
   @media (prefers-reduced-motion: no-preference) {
@@ -344,6 +344,7 @@
     .visual { padding: 1rem; min-height: 0; }
     .feed-item { grid-template-columns: 36px 1fr; }
     .feed-item .status { grid-column: 2; justify-self: start; }
+    .feed-item .status > span { justify-self: start; }
     .ch { width: 36px; height: 36px; }
     .btn-main { padding: .95rem 1.2rem .9rem; font-size: .9rem; }
     .badge { width: 96px; height: 96px; right: 14px; bottom: 14px; }
@@ -605,7 +606,7 @@
       <div class="why">
         <div class="why-left">
           <span class="tag" data-i18n="why.tag">Why Bloom</span>
-          <h2 data-i18n-html="why.title">Automation you can <mark>trust</mark> with your customers</h2>
+          <h2 data-i18n-html="why.title">Your customers, in <mark>good hands</mark>.</h2>
           <div class="cust" aria-label="Example customer card">
             <div class="cust-top">
               <div class="avatar">MD</div>
@@ -682,7 +683,7 @@
 
   var T = {
     en: {
-      'meta.title': 'Bloom — Every customer answered, every lead followed up',
+      'meta.title': 'Bloom AI',
       'nav.how': 'How it works', 'nav.usecases': 'Use cases', 'nav.why': 'Why Bloom',
       'cta.book': 'Let’s talk',
       'hero.tag': 'Customer support & lead automation',
@@ -723,7 +724,7 @@
       'uc.2.tag': 'Customer support', 'uc.2.title': 'Support that never sleeps', 'uc.2.text': 'Email, WhatsApp, Telegram or phone: customers get answers in seconds.',
       'uc.3.tag': 'Your team', 'uc.3.title': 'Every customer, on one screen', 'uc.3.text': 'An assistant that pulls emails, tickets, leads and invoices together for your team.',
       'why.tag': 'Why Bloom',
-      'why.title': 'Automation you can <mark>trust</mark> with your customers',
+      'why.title': 'Your customers, in <mark>good hands</mark>.',
       'cust.co': 'Dupont Interiors · Client since 2024',
       'cust.label': 'Everything about this customer, in one place',
       'cust.1': 'Last email: delivery date question', 'cust.1s': 'Answered',
@@ -741,7 +742,7 @@
       'badge.text': 'Let’s talk • Let’s talk • Let’s talk •'
     },
     fr: {
-      'meta.title': 'Bloom — Chaque client a sa réponse, chaque prospect est relancé',
+      'meta.title': 'Bloom AI',
       'nav.how': 'Comment ça marche', 'nav.usecases': 'Cas d’usage', 'nav.why': 'Pourquoi Bloom',
       'cta.book': 'Contactez-nous',
       'hero.tag': 'Automatisation du service client et des prospects',
@@ -782,7 +783,7 @@
       'uc.2.tag': 'Service client', 'uc.2.title': 'Un support qui ne dort jamais', 'uc.2.text': 'Email, WhatsApp, Telegram ou téléphone : vos clients ont une réponse en quelques secondes.',
       'uc.3.tag': 'Votre équipe', 'uc.3.title': 'Chaque client, sur un seul écran', 'uc.3.text': 'Un assistant qui rassemble emails, tickets, prospects et factures pour votre équipe.',
       'why.tag': 'Pourquoi Bloom',
-      'why.title': 'Une automatisation à qui <mark>confier</mark> vos clients',
+      'why.title': 'Vos clients entre de <mark>bonnes mains</mark>.',
       'cust.co': 'Dupont Intérieurs · Cliente depuis 2024',
       'cust.label': 'Tout sur ce client, au même endroit',
       'cust.1': 'Dernier email : question sur la livraison', 'cust.1s': 'Répondu',
